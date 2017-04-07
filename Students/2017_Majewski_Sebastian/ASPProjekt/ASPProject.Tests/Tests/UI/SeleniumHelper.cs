@@ -13,7 +13,7 @@ namespace ASPProject.Tests.Tests.UI
     {
         public const string BaseUrl = "http://aspprojekt.azurewebsites.net";
         private const string VirtualPath = "";
-        private const int TimeOut = 1000;
+        private const int TimeOut = 30;
         private static readonly IWebDriver StaticDriver = CreateDriverInstance();
         private static Login currentlyLoggedInAs;
         private static int testClassesRunning;

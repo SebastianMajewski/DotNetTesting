@@ -34,7 +34,7 @@
 
 <div class="row">
     <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body" id="binsContainer">
             @foreach (var bin in Model.Bins)
             {
                 <div class="panel panel-default">
@@ -42,7 +42,7 @@
                         <h4>
                             <small>@Html.ActionLink(bin.ApplicationUser.UserName, "Details", "Account", new { id = bin.ApplicationUser.Id }, new { @class = "bin_link" })</small>
                             <small>:</small>
-                            @Html.ActionLink(@bin.Name, "Details", "Bins", new { id = @bin.Id }, new { @class = "link" })
+                            @Html.ActionLink(@bin.Name, "Details", "Bins", new { id = @bin.Id }, new { @class = "link" , id=@bin.Id.ToString()})
                         </h4>
                     </div>
                 </div>

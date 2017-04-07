@@ -41,7 +41,9 @@ namespace ASPProject.Tests.Tests.UI
             this.Type("name", "Bin");
             this.Type("Description", "New Bin");
             this.Click("submitBin");
-            this.Open("~/Bins/Delete/1");
+
+            ReadOnlyCollection<IWebElement> cells = Driver.FindElements(By.ClassName("link"));
+            this.Open("~/Bins/Delete/" + cells[0].GetAttribute("id"));
             Assert.AreEqual("Usuń śmietnik", this.GetElement("title").Text);
             this.Click("submit");
             Assert.AreEqual("Śmietniki użytkownika:", this.GetElement("bins").Text);
@@ -50,55 +52,34 @@ namespace ASPProject.Tests.Tests.UI
         [TestMethod]
         public void BinEdit()
         {
-            IWebDriver driver = new ChromeDriver("./", new ChromeOptions(), TimeSpan.FromSeconds(300));
-            INavigation nav = driver.Navigate();
-            nav.GoToUrl("http://www.google.com");
-            Assert.IsTrue(true);
-            //IWebElement el = driver.FindElement(By.Name("edytuj"));
-            //String message = el.Text;
-            //String successMsg = "Edytuj dane";
-            //Assert.AreEqual(message, successMsg);
+            this.Open("~/Bins/Create");
+            this.Type("name", "Bin");
+            this.Type("Description", "New Bin");
+            this.Click("submitBin");
+
+            ReadOnlyCollection<IWebElement> cells = Driver.FindElements(By.ClassName("link"));
+            this.Open("~/Bins/Edit/" + cells[0].GetAttribute("id"));
+            this.Type("name", "Bin2");
+            this.Type("description", "New Bin2");
+            this.Click("submit");
+            Assert.AreEqual("Śmietniki użytkownika:", this.GetElement("bins").Text);
         }
 
         [TestMethod]
-        public void TestAddPerson()
+        public void TestAllBins()
         {
-            IWebDriver driver = new ChromeDriver();
-            INavigation nav = driver.Navigate();
-            nav.GoToUrl("http://localhost:9098/Person/Add");
-            driver.FindElement(By.Id("nazwisko")).Click();
-            driver.FindElement(By.Id("nazwisko")).SendKeys("Nowak");
-            driver.FindElement(By.Id("imie")).Click();
-            driver.FindElement(By.Id("imie")).SendKeys("Kasia");
-            driver.FindElement(By.Name("dodaj")).Click();
-            string checkTest = driver.FindElement(By.Name("Title")).Text;
-            Assert.AreEqual("Lista wszystkich osób", checkTest);
-            driver.Close();
-        }
-
-        [TestMethod]
-        public void TestAllPerson()
-        {
-            IWebDriver driver = new ChromeDriver();
-            INavigation nav = driver.Navigate();
-            nav.GoToUrl("http://localhost:9098/Person/All");
-
-            IWebElement table = driver.FindElement(By.XPath("/html/body/div[2]/table"));
-
-            ReadOnlyCollection<IWebElement> allRows = table.FindElements(By.TagName("tr"));
-            int licz = 0;
-            foreach (IWebElement row in allRows)
+            this.Open("~/User/Admin");
+            ReadOnlyCollection<IWebElement> cells = Driver.FindElements(By.ClassName("link"));
+            for (var i = 0; i < 4; i++)
             {
-                ReadOnlyCollection<IWebElement> cells = row.FindElements(By.TagName("td"));
-
-                foreach (IWebElement cell in cells)
-                {
-                    //Console.WriteLine("\t" + cell.Text);
-                }
-                licz++;
+                this.Open("~/Bins/Create");
+                this.Type("name", "Bin");
+                this.Type("Description", "New Bin");
+                this.Click("submitBin");
             }
-            Assert.IsTrue(licz > 4);
-            driver.Close();
+            this.Open("~/User/Admin");
+            ReadOnlyCollection<IWebElement> cells2 = Driver.FindElements(By.ClassName("link"));          
+            Assert.IsTrue(cells.Count + 4 == cells2.Count);
         }
 
     }
