@@ -59,8 +59,8 @@ namespace ASPProject.Tests.Tests.UI
 
             ReadOnlyCollection<IWebElement> cells = Driver.FindElements(By.ClassName("link"));
             this.Open("~/Bins/Edit/" + cells[0].GetAttribute("id"));
-            this.Type("name", "Bin2");
-            this.Type("description", "New Bin2");
+            this.Type("Name", "Bin2");
+            this.Type("Description", "New Bin2");
             this.Click("submit");
             Assert.AreEqual("Śmietniki użytkownika:", this.GetElement("bins").Text);
         }
