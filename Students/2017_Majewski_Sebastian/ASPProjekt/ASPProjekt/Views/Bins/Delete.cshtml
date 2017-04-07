@@ -4,7 +4,7 @@
     ViewBag.Title = "Usuń";
 }
 
-<h2>Usuń śmietnik</h2>
+<h2 id="title">Usuń śmietnik</h2>
 
 <h3>Czy napewno chcesz usunąć śmietnik?</h3>
 <div>
@@ -33,7 +33,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-default" />
+            <input type="submit" id="submit" value="Usuń" class="btn btn-default" />
         </div>
     }
 </div>
