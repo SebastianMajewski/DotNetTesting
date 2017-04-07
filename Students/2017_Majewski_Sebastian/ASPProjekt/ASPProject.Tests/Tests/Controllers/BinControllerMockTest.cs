@@ -90,6 +90,7 @@ namespace ASPProject.Tests.Tests.Controllers
         }
 
         [TestMethod]
+        [ExpectedException(typeof(WebException))]
         public void DeleteBadId()
         {
             var ar = this.controller.Delete(10);

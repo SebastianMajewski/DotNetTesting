@@ -61,7 +61,7 @@
             var bin = this.db.Bins.FirstOrDefault(x => x.Id == id.Value);
             if (bin == null)
             {
-                return this.HttpNotFound();
+                throw new WebException();
             }
 
             return this.View("Delete", bin);
